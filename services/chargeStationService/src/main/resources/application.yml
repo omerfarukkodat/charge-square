@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: charging-station-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: postgres
+    username: postgres
+    url: jdbc:postgresql://localhost:5433/station
+  jpa:
+    hibernate:
+      ddl-auto: update
