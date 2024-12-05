@@ -4,6 +4,7 @@ import com.kodat.of.chargingstationservice.station.Station;
 import com.kodat.of.chargingstationservice.station.dto.StationDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StationMapper {
     public static StationDto toStationDto(Station station) {
@@ -28,6 +29,6 @@ public class StationMapper {
     public static List<StationDto> toStationDtoList(List<Station> stations) {
        return stations.stream()
                .map(StationMapper::toStationDto)
-               .toList();
+               .collect(Collectors.toList());
     }
 }

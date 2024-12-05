@@ -1,6 +1,6 @@
 spring:
   application:
-    name: charging-station-service
+    name: charge-station-service
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
@@ -9,3 +9,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      port: 6379
+      host: redis-station
+
+  cache:
+    type: redis
+    cache-names:
+      - stations
+      - station
+    redis:
+      key-prefix: charge-station-service
+server:
+  port: 8081
+
