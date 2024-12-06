@@ -1,6 +1,7 @@
-package com.kodat.of.chargingstationservice.station;
+package com.kodat.of.chargingstationservice.service;
 
-import com.kodat.of.chargingstationservice.station.dto.StationDto;
+
+import com.kodat.of.commondtomodule.dto.StationDto;
 
 import java.util.List;
 

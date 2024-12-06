@@ -1,8 +1,10 @@
-package com.kodat.of.chargingstationservice.station;
+package com.kodat.of.chargingstationservice.service;
 
+import com.kodat.of.chargingstationservice.entity.Station;
 import com.kodat.of.chargingstationservice.exception.StationNotFoundException;
-import com.kodat.of.chargingstationservice.station.dto.StationDto;
-import com.kodat.of.chargingstationservice.station.mapper.StationMapper;
+import com.kodat.of.chargingstationservice.repository.StationRepository;
+import com.kodat.of.chargingstationservice.mapper.StationMapper;
+import com.kodat.of.commondtomodule.dto.StationDto;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class StationServiceImpl implements StationService {
     @Override
     public List<StationDto> getAllStations() {
         List<Station> stationsList = stationRepository.findAll();
-        return StationMapper.toStationDtoList(stationsList);
+        return StationMapper.toStationDtos(stationsList);
     }
 
     @Cacheable(value = "station" , key = "#id")
@@ -33,7 +35,7 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public StationDto addStation(StationDto stationDto) {
-        Station station = StationMapper.toStation(stationDto);
+        Station station = StationMapper.toStationEntity(stationDto);
         stationRepository.save(station);
         return StationMapper.toStationDto(station);
     }

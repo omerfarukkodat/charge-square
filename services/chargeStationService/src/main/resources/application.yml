@@ -13,7 +13,6 @@ spring:
     redis:
       port: 6379
       host: redis-station
-
   cache:
     type: redis
     cache-names:
@@ -21,6 +20,27 @@ spring:
       - station
     redis:
       key-prefix: charge-station-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: charge-station-consumer-service
+      properties:
+        spring.kafka.consumer.properties.spring.json.value.default.type: com.kodat.of.chargingstationservice.dto.StationDto
+        spring.json.trusted.packages: "*"
+      auto-offset-reset: latest
+
 server:
   port: 8081
+
+
+logging:
+  level:
+    root: info
+  file:
+    name: logs/charge-square.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
 
