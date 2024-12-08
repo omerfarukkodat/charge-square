@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: charge-station-service
+  labels:
+    app: charge-station-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: charge-station-service
+  template:
+    metadata:
+      labels:
+        app: charge-station-service
+    spec:
+      containers:
+        - name: charge-station-service
+          image: charge-station-service:latest
+          ports:
+            - containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: charge-station-service
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: charge-station-service-secrets
+                  key: SPRING_DATASOURCE_PASSWORD
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"

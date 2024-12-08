@@ -1,0 +1,34 @@
+# Base image olarak OpenJDK 21 kullanıyoruz
+FROM openjdk:21
+
+# Çalışma dizinini belirleyin
+WORKDIR /app
+
+# Maven Wrapper dosyalarını ve pom.xml'i kopyalayın
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml /app/
+
+# Maven Wrapper dosyasına çalıştırılabilir izinler verin
+RUN chmod +x mvnw
+
+# Yerel bağımlılığı Maven repository'ye kopyalayın
+COPY ./common-dto-module-0.0.1-SNAPSHOT.jar /root/.m2/repository/com/kodat/of/common-dto-module/0.0.1-SNAPSHOT/common-dto-module-0.0.1-SNAPSHOT.jar
+
+# Bağımlılıkları indir
+RUN ./mvnw dependency:go-offline
+
+# Kaynak kodları kopyalayın
+COPY src /app/src
+
+# Maven ile uygulamayı build et
+RUN ./mvnw clean package -DskipTests
+
+# JAR dosyasını konteynere kopyalayın
+COPY ./target/chargeStationService-0.0.1-SNAPSHOT.jar /app/chargeStationService.jar
+
+# Konteynerin dinleyeceği portu açın
+EXPOSE 8081
+
+# Uygulamayı başlatmak için entrypoint belirleyin
+ENTRYPOINT ["java", "-jar", "/app/chargeStationService.jar"]

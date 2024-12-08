@@ -28,6 +28,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+logs/
 
 ### VS Code ###
 .vscode/
@@ -52,3 +53,28 @@ TEST*.xml
 *.app
 *.exe
 *.war
+*.jar
+
+
+# Helm chart package files
+*.tgz
+
+# Helm chart dependencies
+charts/
+
+# Kubernetes configuration
+*.kube/
+
+# Local environment files
+.env
+
+# Logs and temp files
+*.log
+*.bak
+*.swp
+
+# Node modules if any
+node_modules/
+
+# Others (if necessary)
+*.DS_Store

@@ -5,14 +5,16 @@ spring:
     driver-class-name: org.postgresql.Driver
     password: postgres
     username: postgres
-    url: jdbc:postgresql://localhost:5433/station
+    url: jdbc:postgresql://postgres:5432/station
   jpa:
     hibernate:
       ddl-auto: update
+
   data:
     redis:
+      host: redis
       port: 6379
-      host: redis-station
+
   cache:
     type: redis
     cache-names:
@@ -21,13 +23,12 @@ spring:
     redis:
       key-prefix: charge-station-service
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       group-id: charge-station-consumer-service
       properties:
-        spring.kafka.consumer.properties.spring.json.value.default.type: com.kodat.of.chargingstationservice.dto.StationDto
         spring.json.trusted.packages: "*"
       auto-offset-reset: latest
 

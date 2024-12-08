@@ -27,8 +27,10 @@ public class StationDto {
     private List<ConnectionsDto> connectionsDtos;
 
     @JsonProperty("NumberOfPoints")
+    @Builder.Default
     private int numberOfPoints=0;
 
     @JsonProperty("UsageCost")
+    @Builder.Default
     private String usageCost="null";
 }

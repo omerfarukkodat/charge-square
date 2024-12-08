@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-config
+data:
+  SPRING_APPLICATION_NAME: "gateway"
+  SPRING_CLOUD_GATEWAY_ROUTES_0_ID: "charge-station-service"
+  SPRING_CLOUD_GATEWAY_ROUTES_0_URI: "http://charge-station-service:8081"
+  SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0: "Path=/stations/**"
+  SPRING_CLOUD_GATEWAY_ROUTES_1_ID: "station-data-relay-service"
+  SPRING_CLOUD_GATEWAY_ROUTES_1_URI: "http://station-data-relay-service:8083"
+  SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0: "Path=/fetch/**"

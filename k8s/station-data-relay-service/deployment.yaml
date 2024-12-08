@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: station-data-relay-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: station-data-relay-service
+  template:
+    metadata:
+      labels:
+        app: station-data-relay-service
+    spec:
+      containers:
+        - name: station-data-relay-service
+          image: station-data-relay-service:latest
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_REDIS_HOST
+              value: "redis"
+            - name: SPRING_REDIS_PORT
+              value: "6379"
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka:9092"
+          restartPolicy: Always
+
