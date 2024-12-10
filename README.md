@@ -43,7 +43,7 @@ This project is a Spring Boot-based microservice that manages charging stations.
 
 
 
-### Charge Station Service Restful Api http://localhost:8081
+### Charge Station Service Restful Api http://localhost:8081/stations
 
 | HTTP Method | Endpoint      | Description                                     |
 |-------------|---------------|-------------------------------------------------|
@@ -67,8 +67,8 @@ This project is a Spring Boot-based microservice that manages charging stations.
  - addStation: Add a new station.
 
 
-### Query to fetch all stations
 ```graphql
+# Query to fetch all stations
 query {
   allStations {
     id
@@ -265,7 +265,7 @@ spring.datasource.password=your_db_password
 **3. Build the Application**
 
 - Build the project using Maven:
-### You have to do it for each microservices. ###
+**You have to do it for each microservices.**
 
 ```bash
 mvn clean install
@@ -384,6 +384,7 @@ docker run -p 6379:6379 redis
 
 
 **9. CI/CD Pipeline**
+
 The CI/CD pipeline is implemented using GitHub Actions for automated builds and deployments.
 
 - **Stages**
@@ -392,8 +393,9 @@ The CI/CD pipeline is implemented using GitHub Actions for automated builds and 
     - **Docker Build:** Package the application into a Docker image.
     - **Deploy:** Deploy the Dockerized application to Kubernetes.
 
-**1. Example GitHub Actions CI/CD Workflow File **
-   Create a .github/workflows/ci-cd.yml file in the root directory of each service. This example is prepared for the charging-station-service microservice.
+**1. Example GitHub Actions CI/CD Workflow File**
+
+Create a .github/workflows/ci-cd.yml file in the root directory of each service. This example is prepared for the charging-station-service microservice.
 
 ```bash
 name: Charge Station Service CI/CD
