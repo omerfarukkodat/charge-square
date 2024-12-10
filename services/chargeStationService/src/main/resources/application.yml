@@ -9,7 +9,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
   data:
     redis:
       host: redis
@@ -32,6 +31,12 @@ spring:
         spring.json.trusted.packages: "*"
       auto-offset-reset: latest
 
+  graphql:
+    schema:
+      locations: classpath:graphql/
+    graphiql:
+      enabled: true
+
 server:
   port: 8081
 
@@ -43,5 +48,4 @@ logging:
     name: logs/charge-square.log
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-
 

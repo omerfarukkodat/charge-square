@@ -1,0 +1,78 @@
+type Query {
+    allStations: [GraphqlStationDto]
+    stationById(id: String!): GraphqlStationDto
+    stationByRadius(latitude: Float!, longitude: Float!, radius: Float!): [GraphqlStationDto]
+    searchStation(title: String, usageCost: String): [GraphqlStationDto]
+    fastChargingStations: [GraphqlStationDto]
+}
+
+type Mutation {
+    addStation(graphqlStationDto: GraphqlStationDtoInput): GraphqlStationDto
+}
+
+type GraphqlStationDto {
+    id: String
+    uuid: String
+    usageCost: String
+    addressInfoDto: GraphqlAddressInfoDto
+    connectionsDtos: [GraphqlConnectionsDto]
+    numberOfPoints: Int
+}
+
+type GraphqlAddressInfoDto {
+    addressId: String
+    title: String
+    addressLine1: String
+    addressLine2: String
+    town: String
+    stateOrProvince: String
+    postcode: String
+    countryId: Int
+    distanceUnit: Int
+    latitude: Float
+    longitude: Float
+}
+
+type GraphqlConnectionsDto {
+    id: String
+    connectionTypeId: Int
+    statusTypeId: Int
+    levelId: Int
+    powerKW: Int
+    currentTypeId: Int
+    quantity: Int
+    isFast: Boolean
+}
+
+input GraphqlStationDtoInput {
+    id: String
+    usageCost: String
+    addressInfoDto: GraphqlAddressInfoDtoInput
+    connectionsDtos: [GraphqlConnectionDtoInput]
+    numberOfPoints: Int
+}
+
+input GraphqlAddressInfoDtoInput {
+    addressId: String
+    title: String!
+    addressLine1: String
+    addressLine2: String
+    town: String
+    stateOrProvince: String
+    postcode: String
+    latitude: Float!
+    longitude: Float!
+    countryId: Int
+    distanceUnit: Int
+}
+
+input GraphqlConnectionDtoInput {
+    id: String
+    connectionTypeId: Int
+    statusTypeId: Int
+    levelId: Int
+    powerKW: Int
+    currentTypeId: Int
+    quantity: Int!
+    isFast: Boolean
+}

@@ -56,8 +56,8 @@ public class StationMapper {
 
     public static AddressInfo toAddressInfoEntity(AddressInfoDto addressInfoDto) {
         return AddressInfo.builder()
-                .id(addressInfoDto.getAddressId())  // addressId'yi alıyoruz
-                .title(addressInfoDto.getTitle())   // Başlık bilgisi
+                .id(addressInfoDto.getAddressId())
+                .title(addressInfoDto.getTitle())
                 .addressLine1(addressInfoDto.getAddressLine1())
                 .addressLine2(addressInfoDto.getAddressLine2())
                 .town(addressInfoDto.getTown())
@@ -77,7 +77,6 @@ public class StationMapper {
                             .currentTypeId(connectionDto.getCurrentTypeId())
                             .levelId(connectionDto.getLevelId())
                             .quantity(connectionDto.getQuantity())
-                            .isFast(connectionDto.isFast())
                             .station(station) // Ensure the correct station is assigned to the connection
                             .build();
                     return connection;

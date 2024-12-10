@@ -39,6 +39,6 @@ public class Connections implements Serializable {
 
 
     public boolean isFast() {
-        return levelId == 3;
+        return isFast = levelId == 3;
     }
 }
