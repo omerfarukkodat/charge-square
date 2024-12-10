@@ -3,8 +3,9 @@
 
 
 ## Project Overview
-This project is a Spring Boot-based microservice that manages charging stations.The microservice provides RESTful APIs and integrates a GraphQL API to support advanced querying and interactions with charging stations. The service includes features like querying by location, station details, and adding new stations, among other functionalities.
+The ChargeSquare microservice is built with **Spring Boot** and facilitates the management of electric vehicle charging stations. The service provides **RESTful APIs** for basic CRUD operations and integrates a **GraphQL API** for advanced querying capabilities. Additionally, the service uses **Kafka** for data streaming and **Redis caching** for fast data retrieval.
 
+The service collects data from an **external API** that provides information about charging stations across **Turkey.** This data is fetched via the **OpenChargeMap API** and is passed through the **Kafka messaging system** to ensure seamless data handling. **The ChargeStation Service** then processes and normalizes the data before saving it to the database.
 ## Features
 
 **Basic CRUD Operations:**
@@ -16,6 +17,20 @@ This project is a Spring Boot-based microservice that manages charging stations.
 
  - Query and mutate charging stations with flexible and advanced filtering.
  - Fetch stations by radius, search by title or usage cost, and find fast charging stations.
+ 
+**Data Integration from External API:**
+
+ - The service retrieves data from the OpenChargeMap API, which provides information about electric vehicle charging stations across Turkey.
+ - The retrieved data includes station locations, types, and other metadata such as availability and charging speeds.
+
+**Kafka Integration:**
+
+ - The data fetched from the external API is passed through Kafka, ensuring efficient asynchronous processing and message-based communication between services.
+ - The ChargeStation Service consumes Kafka messages to process and normalize the data for insertion into the database.
+
+**Data Normalization**
+ - Once the data is processed from the Kafka messages, it undergoes data normalization to fit the required schema for storage in the database.
+ - The service handles discrepancies or variations in the data format to ensure consistency across the database.
 
 **Caching & API Gateway:**
 
@@ -26,6 +41,14 @@ This project is a Spring Boot-based microservice that manages charging stations.
 
  - Dockerized application for easy deployment.
  - Kubernetes manifests and Helm for managing deployment.
+
+**External API Integration**
+ - **External API URL:** https://api.openchargemap.io/v3/poi/?output=json&countrycode=TR&maxresults=2000&compact=true&verbose=false&key=APIKEY
+ - **API KEY:** 
+
+ - This integration enables the system to dynamically fetch up-to-date information about charging stations across Turkey, ensuring that users can access the most relevant and accurate data.
+
+
 
 ## Requirements
 - Java 21 or later
@@ -265,7 +288,8 @@ spring.datasource.password=your_db_password
 **3. Build the Application**
 
 - Build the project using Maven:
-**You have to do it for each microservices.**
+
+- **You have to do it for each microservices.**
 
 ```bash
 mvn clean install

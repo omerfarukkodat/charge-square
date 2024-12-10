@@ -78,3 +78,5 @@ node_modules/
 
 # Others (if necessary)
 *.DS_Store
+
+.logs/
