@@ -44,7 +44,7 @@ The service collects data from an **external API** that provides information abo
 
 **External API Integration**
  - **External API URL:** https://api.openchargemap.io/v3/poi/?output=json&countrycode=TR&maxresults=2000&compact=true&verbose=false&key=APIKEY
- - **API KEY:** 
+ - **API KEY:** You have to register open charge map's website. 
 
  - This integration enables the system to dynamically fetch up-to-date information about charging stations across Turkey, ensuring that users can access the most relevant and accurate data.
 
@@ -91,7 +91,7 @@ The service collects data from an **external API** that provides information abo
 
 
 ```graphql
-# Query to fetch all stations
+# Query to fetch all stations (With all fields)
 query {
   allStations {
     id
@@ -125,148 +125,209 @@ query {
 }
 ```
 
+
 ```graphql
-# Query to fetch a station by ID
-query {
-  stationById(id: "1234") {
-    id
-    uuid
-    usageCost
-    addressInfoDto {
-      addressId
-      title
-      addressLine1
-      addressLine2
-      town
-      stateOrProvince
-      postcode
-      countryId
-      distanceUnit
-      latitude
-      longitude
+# Example query of stationById($id: String!)
+
+# GRAPHQL http://localhost:8081/graphql
+
+query  stationById($id: String!) {
+   stationById(id: $id) {
+     usageCost
+   }
+}
+
+{
+"id": "306871"
+}
+
+HTTP/1.1 200 
+Content-Type: application/json
+
+{
+  "data": {
+    "stationById": {
+      "usageCost": "7.99"
     }
-    connectionsDtos {
-      id
-      connectionTypeId
-      statusTypeId
-      levelId
-      powerKW
-      currentTypeId
-      quantity
-      isFast
-    }
-    numberOfPoints
+  }
+}
+
+```
+
+```graphql
+# Example query of stationByRadius($latitude: Float!, $longitude: Float!, $radius: Float!)
+
+# GRAPHQL http://localhost:8081/graphql
+
+query  stationByRadius($latitude: Float!, $longitude: Float!, $radius: Float!) {
+ stationByRadius(latitude: $latitude, longitude: $longitude, radius: $radius) {
+  addressInfoDto {
+    title
+  }
+ }
+}
+
+{
+"latitude": 37.77843632174442,
+"longitude": 37.62843550587763,
+"radius": 25
+}
+
+
+HTTP/1.1 200 
+Content-Type: application/json
+
+{
+  "data": {
+    "stationByRadius": [
+      {
+        "addressInfoDto": {
+          "title": "Trugo DC Gölbaşı Shell"
+        }
+      },
+      {
+        "addressInfoDto": {
+          "title": "Adiyaman Bayindir Lukoil Petrol"
+        }
+      },
+      {
+        "addressInfoDto": {
+          "title": "ZES - Öz Meda Adıyaman"
+        }
+      }
+    ]
+  }
+}
+
+```
+
+```graphql
+# Example query of fastChargingStations()
+
+# GRAPHQL http://localhost:8081/graphql
+
+query  {
+ fastChargingStations {
+  connectionsDtos {
+    powerKW
+  }
+ }
+}
+
+HTTP/1.1 200 
+Content-Type: application/json
+
+{
+  "data": {
+    "fastChargingStations": [
+      {
+        "connectionsDtos": [
+          {
+            "powerKW": 180
+          }
+        ]
+      },
+      {
+        "connectionsDtos": [
+          {
+            "powerKW": 180
+          }
+        ]
+      },
+      .
+      .
+      .
+}
+
+```
+
+```graphql
+# Example query of AllStations() 
+
+# GRAPHQL http://localhost:8081/graphql
+
+query  {
+ allStations {
+  addressInfoDto {
+   town
+  }
+ }
+}
+
+
+HTTP/1.1 200 
+Content-Type: application/json
+
+
+{
+  "data": {
+    "allStations": [
+      {
+        "addressInfoDto": {
+          "town": "Gölbaşı"
+        }
+      },
+      {
+        "addressInfoDto": {
+          "town": "Erdemli"
+        }
+      },
+      {
+        "addressInfoDto": {
+          "town": "Erdemli"
+        }
+      },
+      {
+        "addressInfoDto": {
+          "town": "Türkoğlu"
+        }
+      },
+      .
+      .
+      .
+}      
+
+```
+
+```graphql
+#Example query of searchStation ($title: String, $usageCost: String)
+
+# GRAPHQL http://localhost:8081/graphql
+
+query  searchStation($title: String, $usageCost: String) {
+   searchStation(title: $title, usageCost: $usageCost) {
+     numberOfPoints
+   }
+}
+
+{
+"title": "Tru",
+"usageCost": "7"
+}
+
+HTTP/1.1 200 
+Content-Type: application/json
+
+{
+  "data": {
+    "searchStation": [
+      {
+        "numberOfPoints": 1
+      },
+      {
+        "numberOfPoints": 1
+      },
+      {
+        "numberOfPoints": 1
+      },
+      {
+        "numberOfPoints": 1
+      }
+    ]
   }
 }
 ```
 
-```graphql
-# Query to fetch stations by radius
-  query {
-    stationByRadius(latitude: 40.7128, longitude: -74.0060, radius: 5) {
-      id
-      uuid
-      usageCost
-      addressInfoDto {
-        addressId
-        title
-        addressLine1
-        addressLine2
-        town
-        stateOrProvince
-        postcode
-        countryId
-        distanceUnit
-        latitude
-        longitude
-      }
-      connectionsDtos {
-        id
-        connectionTypeId
-        statusTypeId
-        levelId
-        powerKW
-        currentTypeId
-        quantity
-        isFast
-      }
-      numberOfPoints
-    }
-  }
-```
-
-
-```graphql
-# Query to search stations by title and usage cost
-
-query {
-  searchStation(title: "Station 1", usageCost: "5.00") {
-      id
-      uuid
-      usageCost
-      addressInfoDto {
-        addressId
-        title
-        addressLine1
-        addressLine2
-        town
-        stateOrProvince
-        postcode
-        countryId
-        distanceUnit
-        latitude
-        longitude
-      }
-      connectionsDtos {
-        id
-        connectionTypeId
-        statusTypeId
-        levelId
-        powerKW
-        currentTypeId
-        quantity
-        isFast
-      }
-      numberOfPoints
-    }
-  }
-```
-
-
-```graphql
-# Query to fetch fast charging stations
-query {
-fastChargingStations {
-      id
-      uuid
-      usageCost
-      addressInfoDto {
-        addressId
-        title
-        addressLine1
-        addressLine2
-        town
-        stateOrProvince
-        postcode
-        countryId
-        distanceUnit
-        latitude
-        longitude
-      }
-      connectionsDtos {
-        id
-        connectionTypeId
-        statusTypeId
-        levelId
-        powerKW
-        currentTypeId
-        quantity
-        isFast
-      }
-      numberOfPoints
-    }
-  }
-```
 
 
 ## Setup Instructions
@@ -515,15 +576,16 @@ jobs:
 
 
 **3. Step-by-Step Explanation**
- **1. Triggering the Workflow (on Push and PR)** The on: section determines when the workflow will be triggered. In this example, it is triggered when there is a push to the main branch or a pull request targeting the main branch.
 
- **2. Linting & Static Analysis (Lint Job)** In the lint: job, we use checkstyle:check to verify that the code follows the correct style and format.
+- **1. Triggering the Workflow (on Push and PR)** The on: section determines when the workflow will be triggered. In this example, it is triggered when there is a push to the main branch or a pull request targeting the main branch.
 
- **3. Test Job** In the test: job, we run unit tests for the project. We use mvn test to check if all tests pass.
+- **2. Linting & Static Analysis (Lint Job)** In the lint: job, we use checkstyle:check to verify that the code follows the correct style and format.
 
- **4. Docker Build and Push** In the docker-build: job, we build the Docker image and push it to Docker Hub. We use GitHub Secrets (DOCKER_USERNAME and DOCKER_PASSWORD) to authenticate with Docker Hub.
+- **3. Test Job** In the test: job, we run unit tests for the project. We use mvn test to check if all tests pass.
 
- **5. Deployment to Kubernetes** In the deploy: job, we deploy the Docker image to a Kubernetes environment. We connect to the Kubernetes cluster using the Kubeconfig file and apply the Kubernetes manifest file using kubectl apply -f.
+- **4. Docker Build and Push** In the docker-build: job, we build the Docker image and push it to Docker Hub. We use GitHub Secrets (DOCKER_USERNAME and DOCKER_PASSWORD) to authenticate with Docker Hub.
+
+- **5. Deployment to Kubernetes** In the deploy: job, we deploy the Docker image to a Kubernetes environment. We connect to the Kubernetes cluster using the Kubeconfig file and apply the Kubernetes manifest file using kubectl apply -f.
 
 **4. GitHub Secrets**
    GitHub Actions pipeline uses GitHub Secrets to access Docker Hub and Kubernetes. You can define these secrets in the **Settings > Secrets** section of your GitHub repository.

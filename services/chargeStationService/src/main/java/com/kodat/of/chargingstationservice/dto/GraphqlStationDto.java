@@ -1,8 +1,6 @@
 package com.kodat.of.chargingstationservice.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kodat.of.commondtomodule.dto.AddressInfoDto;
-import com.kodat.of.commondtomodule.dto.ConnectionsDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

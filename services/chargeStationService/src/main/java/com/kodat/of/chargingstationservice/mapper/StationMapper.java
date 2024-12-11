@@ -3,9 +3,9 @@ package com.kodat.of.chargingstationservice.mapper;
 import com.kodat.of.chargingstationservice.entity.AddressInfo;
 import com.kodat.of.chargingstationservice.entity.Connections;
 import com.kodat.of.chargingstationservice.entity.Station;
-import com.kodat.of.commondtomodule.dto.AddressInfoDto;
-import com.kodat.of.commondtomodule.dto.ConnectionsDto;
-import com.kodat.of.commondtomodule.dto.StationDto;
+import com.kodat.of.commondto.dto.AddressInfoDto;
+import com.kodat.of.commondto.dto.ConnectionsDto;
+import com.kodat.of.commondto.dto.StationDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

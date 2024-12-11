@@ -13,7 +13,7 @@ COPY pom.xml /app/
 RUN chmod +x mvnw
 
 # Copy the local dependency to the Maven repository
-COPY ./common-dto-module-0.0.1-SNAPSHOT.jar /root/.m2/repository/com/kodat/of/common-dto-module/0.0.1-SNAPSHOT/common-dto-module-0.0.1-SNAPSHOT.jar
+COPY ./common-dto-0.0.1-SNAPSHOT.jar /root/.m2/repository/com/kodat/of/common-dto/0.0.1-SNAPSHOT/common-dto-0.0.1-SNAPSHOT.jar
 
 # Download dependencies
 RUN ./mvnw dependency:go-offline

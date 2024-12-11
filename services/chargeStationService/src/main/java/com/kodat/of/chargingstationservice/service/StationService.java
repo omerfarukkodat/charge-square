@@ -1,7 +1,7 @@
 package com.kodat.of.chargingstationservice.service;
 
 
-import com.kodat.of.commondtomodule.dto.StationDto;
+import com.kodat.of.commondto.dto.StationDto;
 import java.util.List;
 
 public interface StationService {

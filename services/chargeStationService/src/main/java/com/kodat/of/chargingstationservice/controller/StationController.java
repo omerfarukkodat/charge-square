@@ -1,12 +1,13 @@
 package com.kodat.of.chargingstationservice.controller;
 
 import com.kodat.of.chargingstationservice.service.StationService;
-import com.kodat.of.commondtomodule.dto.StationDto;
+import com.kodat.of.commondto.dto.StationDto;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/stations")
@@ -18,17 +19,17 @@ public class StationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<com.kodat.of.commondtomodule.dto.StationDto>> getAllStations() {
+    public ResponseEntity<List<StationDto>> getAllStations() {
         return ResponseEntity.ok(stationService.getAllStations());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<com.kodat.of.commondtomodule.dto.StationDto> getStationById(@PathVariable Long id) {
+    public ResponseEntity<StationDto> getStationById(@PathVariable Long id) {
         return ResponseEntity.ok(stationService.getStationById(id));
     }
 
     @PostMapping
-    public ResponseEntity<com.kodat.of.commondtomodule.dto.StationDto> addStation(
+    public ResponseEntity<StationDto> addStation(
             @RequestBody @Valid StationDto stationDto
     ) {
         return ResponseEntity.accepted().body(stationService.addStation(stationDto));

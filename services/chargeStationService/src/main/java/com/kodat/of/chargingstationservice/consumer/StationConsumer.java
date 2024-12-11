@@ -7,7 +7,7 @@ import com.kodat.of.chargingstationservice.mapper.StationMapper;
 import com.kodat.of.chargingstationservice.repository.AddressInfoRepository;
 import com.kodat.of.chargingstationservice.repository.ConnectionsRepository;
 import com.kodat.of.chargingstationservice.repository.StationRepository;
-import com.kodat.of.commondtomodule.dto.StationDto;
+import com.kodat.of.commondto.dto.StationDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;

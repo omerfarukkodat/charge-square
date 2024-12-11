@@ -59,7 +59,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kodat.of</groupId>
-			<artifactId>common-dto-module</artifactId>
+			<artifactId>common-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
     </dependencies>

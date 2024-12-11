@@ -1,4 +1,4 @@
-package com.kodat.of.commondtomodule.dto;
+package com.kodat.of.commondto.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

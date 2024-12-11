@@ -1,6 +1,6 @@
 package com.kodat.of.stationdatarelayservice.controller;
 
-import com.kodat.of.commondtomodule.dto.StationDto;
+import com.kodat.of.commondto.dto.StationDto;
 import com.kodat.of.stationdatarelayservice.service.ExternalApiFetchService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
 package com.kodat.of.stationdatarelayservice.service;
 
-import com.kodat.of.commondtomodule.dto.StationDto;
+import com.kodat.of.commondto.dto.StationDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
